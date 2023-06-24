@@ -1,7 +1,7 @@
 {
     "data": [
         {
-            "startfarm": "true",
+            "startfarm": "True",
             "idplayer":"JabzzzC",
             "modefarm":"ฟาร์มเพชร",
             "itemfarm":"Tomoe",
