@@ -1,0 +1,19 @@
+return{
+    "data": [
+        {
+            "startfarm": "True",
+            "idplayer":"JabzzzC",
+            "modefarm":"ฟาร์มเพชร",
+            "itemfarm":"Tomoe",
+            "numberfarm":"100000",
+            "replay":"True",
+            "whitesc":"True",
+            "codeget":"False",
+            "buyunit":"False",
+            "sellunit":"False",
+            "wh1":"http://localhost/JMF/php/getdata.php?q=test1ddd",
+            "wh2":"http://localhost/JMF/php/getdata.php?q=test1ddd"
+        }
+    ]
+}
+
