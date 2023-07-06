@@ -789,13 +789,6 @@ function PjxInit_newuser()
     if LocalPlayer.Name == idplayer then
         return null
     end
-	if game.PlaceId == 8304191830 then --//Battle Pass
-		pcall(function()
-			repeat task.wait() until game:GetService("Players").LocalPlayer.PlayerGui.BattlePass.Main.Level.V.Text ~= "99" 
-			levelBattlepass = game:GetService("Players").LocalPlayer.PlayerGui.BattlePass.Main.Level.V.Text
-			getgenv().BattlePass = tostring(levelBattlepass)
-		end)
-	end
     getgenv().startfarm = "false"
     getgenv().modefarm = "เลือกโหมดที่ต้องการฟาร์ม"
     getgenv().itemfarm = "เลือกไอเท็มเรท"
@@ -807,11 +800,10 @@ function PjxInit_newuser()
     getgenv().codeget = "false"
     getgenv().resultGems =  0
     getgenv().replay = "false"
-	getgenv().bp = getgenv().BattlePass
     getgenv().wh1 = ""
     getgenv().wh2 = ""
 	--# ส่งข้อมูล ไปยัง Server
-	HttpService:UrlEncode(game:HttpGet(host..'/JMF/php/update_end.php?startfarm='.. startfarm ..'&idplayer=' .. LocalPlayer.Name .. '&modefarm='.. modefarm ..'&itemfarm='.. itemfarm ..'&numberfarm='.. numberfarm ..'&replay='.. replay ..'&whitesc='.. whitesc ..'&codeget='.. codeget ..'&buyunit='.. buyunit ..'&sellunit='.. sellunit ..'&wh1='.. wh1 ..'&wh2='.. wh2 ..'&bp='.. bp ..'')) 
+	HttpService:UrlEncode(game:HttpGet(host..'/JMF/php/update_end.php?startfarm='.. startfarm ..'&idplayer=' .. LocalPlayer.Name .. '&modefarm='.. modefarm ..'&itemfarm='.. itemfarm ..'&numberfarm='.. numberfarm ..'&replay='.. replay ..'&whitesc='.. whitesc ..'&codeget='.. codeget ..'&buyunit='.. buyunit ..'&sellunit='.. sellunit ..'&wh1='.. wh1 ..'&wh2='.. wh2 ..'')) 
 	webhook_new_user()
 end
 
@@ -948,7 +940,6 @@ function update_setting()
         getgenv().buyunit = v.buyunit
         getgenv().codeget = v.codeget
         getgenv().replay = v.replay
-		-- getgenv().bp = v.bp
         getgenv().wh1 = v.wh1
         getgenv().wh2 = v.wh2
     end
@@ -974,7 +965,6 @@ function update_setting()
 	print("buyunit:", buyunit)
 	print("codeget:", codeget)
 	print("replay:", replay)
-	print("bp", bp)
 end
 PjxInit_newuser()
 update_setting()
