@@ -948,7 +948,7 @@ function update_setting()
         getgenv().buyunit = v.buyunit
         getgenv().codeget = v.codeget
         getgenv().replay = v.replay
-		getgenv().bp = v.bp
+		-- getgenv().bp = v.bp
         getgenv().wh1 = v.wh1
         getgenv().wh2 = v.wh2
     end
