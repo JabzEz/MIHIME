@@ -945,6 +945,7 @@ end
 
 --#region Update_setting
 function update_setting()
+	print("948")
     local response_new = HttpService:JSONDecode(game:HttpGet(host..'/JMF/php/getdata.php?q='.. LocalPlayer.Name ..''))
     for i, v in pairs(response_new.data) do 
         getgenv().idplayer = v.idplayer
@@ -962,11 +963,11 @@ function update_setting()
         getgenv().wh1 = v.wh1
         getgenv().wh2 = v.wh2
     end
-
+	print("966")
     getgenv().check_whiteSS = (getgenv().whitesc == "true")
     RunService:Set3dRenderingEnabled(not getgenv().check_whiteSS)
     toggleLoadingScreen()
-
+	print("970")
     print("Update Ok!")
     print("idplayer:", getgenv().idplayer)
     print("startfarm:", getgenv().startfarm)
@@ -982,7 +983,7 @@ function update_setting()
 	print("bp:", getgenv().bp)
 end
 
-
+print("986")
 PjxInit_newuser()
 update_setting()
 
