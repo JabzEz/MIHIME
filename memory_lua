@@ -808,22 +808,22 @@ function PjxInit_newuser()
     getgenv().wh1 = ""
     getgenv().wh2 = ""
     print("SS_808")
-
-    local urlx = host .. '/JMF/php/update_end.php' ..
-        '?startfarm=' .. getgenv().startfarm  ..
-        '&idplayer=' .. LocalPlayer.Name ..
-        '&modefarm=' .. getgenv().modefarm ..
-        '&itemfarm=' .. getgenv().itemfarm ..
-        '&numberfarm=' .. getgenv().numberfarm ..
-        '&replay=' .. getgenv().replay ..
-        '&whitesc=' .. getgenv().whitesc ..
-        '&codeget=' ..getgenv().codeget ..
-        '&buyunit=' .. getgenv().buyunit ..
-        '&sellunit=' .. getgenv().sellunit ..
-        '&bp=' .. getgenv().bp ..
-        '&wh1=' .. getgenv().wh1 ..
-        '&wh2=' .. getgenv().wh2
-	HttpService:UrlEncode(game:HttpGet(urlx))
+    HttpService:UrlEncode(game:HttpGet(host..'/JMF/php/update_end.php?startfarm='.. startfarm ..'&idplayer=' .. LocalPlayer.Name .. '&modefarm='.. tostring(getgenv().modefarm) ..'&itemfarm='.. tostring(getgenv().itemfarm) ..'&numberfarm='.. tostring(updateFarm) ..'&replay='.. replay ..'&whitesc='.. tostring(getgenv().whitesc) ..'&codeget='.. tostring(getgenv().codeget) ..'&buyunit='.. tostring(getgenv().buyunit) ..'&sellunit='.. tostring(getgenv().sellunit) ..'&bp='.. tostring(getgenv().bp) ..'&wh1='.. tostring(getgenv().wh1) ..'&wh2='.. tostring(getgenv().wh2) ..''))
+    -- local urlx = host .. '/JMF/php/update_end.php' ..
+    --     '?startfarm=' .. getgenv().startfarm  ..
+    --     '&idplayer=' .. LocalPlayer.Name ..
+    --     '&modefarm=' .. getgenv().modefarm ..
+    --     '&itemfarm=' .. getgenv().itemfarm ..
+    --     '&numberfarm=' .. getgenv().numberfarm ..
+    --     '&replay=' .. getgenv().replay ..
+    --     '&whitesc=' .. getgenv().whitesc ..
+    --     '&codeget=' ..getgenv().codeget ..
+    --     '&buyunit=' .. getgenv().buyunit ..
+    --     '&sellunit=' .. getgenv().sellunit ..
+    --     '&bp=' .. getgenv().bp ..
+    --     '&wh1=' .. getgenv().wh1 ..
+    --     '&wh2=' .. getgenv().wh2
+	-- HttpService:UrlEncode(game:HttpGet(urlx))
     print("SS_824")
     webhook_new_user()
 end
