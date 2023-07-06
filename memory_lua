@@ -307,7 +307,7 @@ function update_end()
     --HttpService:UrlEncode(game:HttpGet(host..'/JMF/php/update_end.php?startfarm='.. tostring(getgenv().startfarm) ..'&idplayer=' .. LocalPlayer.Name .. '&modefarm='.. tostring(getgenv().modefarm) ..'&itemfarm='.. tostring(getgenv().itemfarm) ..'&numberfarm='.. tostring(updateFarm) ..'&replay='.. tostring(getgenv().replay == "true") ..'&whitesc='.. tostring(getgenv().whitesc) ..'&codeget='.. tostring(getgenv().codeget) ..'&buyunit='.. tostring(getgenv().buyunit) ..'&sellunit='.. tostring(getgenv().sellunit) ..'&wh1='.. tostring(getgenv().wh1) ..'&wh2='.. tostring(getgenv().wh2) ..''))
 	local urlx = host .. '/JMF/php/update_end.php' ..
 		'?numberfarm=' .. HttpService:UrlEncode(tostring(updateFarm))
-	game:HttpGet(urlx)
+		HttpService:UrlEncode(game:HttpGet(urlx))
 end
 
 function Reset_Finish()
@@ -319,7 +319,7 @@ function Reset_Finish()
 		'?startfarm=' .. HttpService:UrlEncode(startfarm) ..
 		'?numberfarm=' .. HttpService:UrlEncode(tostring(updateFarm)) ..
 		'?replay=' .. HttpService:UrlEncode(tostring(replay))
-	game:HttpGet(urlx)
+		HttpService:UrlEncode(game:HttpGet(urlx))
 end
 --#endregion
 
@@ -784,14 +784,16 @@ function PjxInit_newuser()
         end
     end)
     if LocalPlayer.Name == idplayer then
-        return null
+        return nil
     end
-	if game.PlaceId == 8304191830 then --//Battle Pass
-		pcall(function()
-			repeat task.wait() until game:GetService("Players").LocalPlayer.PlayerGui.BattlePass.Main.Level.V.Text ~= "99" 
-			levelBattlepass = game:GetService("Players").LocalPlayer.PlayerGui.BattlePass.Main.Level.V.Text
-		end)
-	end
+
+    if game.PlaceId == 8304191830 then -- Battle Pass
+        pcall(function()
+            repeat task.wait() until game:GetService("Players").LocalPlayer.PlayerGui.BattlePass.Main.Level.V.Text ~= "99"
+            levelBattlepass = game:GetService("Players").LocalPlayer.PlayerGui.BattlePass.Main.Level.V.Text
+        end)
+    end
+
     getgenv().startfarm = "false"
     getgenv().modefarm = "เลือกโหมดที่ต้องการฟาร์ม"
     getgenv().itemfarm = "เลือกไอเท็มเรท"
@@ -802,28 +804,31 @@ function PjxInit_newuser()
     getgenv().buyunit = "false"
     getgenv().codeget = "false"
     getgenv().replay = "false"
-	getgenv().bp = "0"
+    getgenv().bp = "0"
     getgenv().wh1 = ""
     getgenv().wh2 = ""
-	print("SS_808")
+    print("SS_808")
+
     local urlx = host .. '/JMF/php/update_end.php' ..
-                '?startfarm=' .. HttpService:UrlEncode(startfarm) ..
-                '&idplayer=' .. HttpService:UrlEncode(LocalPlayer.Name) ..
-                '&modefarm=' .. HttpService:UrlEncode(modefarm) ..
-                '&itemfarm=' .. HttpService:UrlEncode(itemfarm) ..
-                '&numberfarm=' .. HttpService:UrlEncode(numberfarm) ..
-                '&replay=' .. HttpService:UrlEncode(replay) ..
-                '&whitesc=' .. HttpService:UrlEncode(whitesc) ..
-                '&codeget=' .. HttpService:UrlEncode(codeget) ..
-                '&buyunit=' .. HttpService:UrlEncode(buyunit) ..
-                '&sellunit=' .. HttpService:UrlEncode(sellunit) ..
-				'&bp=' .. HttpService:UrlEncode(bp) ..
-                '&wh1=' .. HttpService:UrlEncode(wh1) ..
-                '&wh2=' .. HttpService:UrlEncode(wh2)
-    game:HttpGet(urlx)
-	print("SS_824")
+        '?startfarm=' .. HttpService:UrlEncode(getgenv().startfarm) ..
+        '&idplayer=' .. HttpService:UrlEncode(LocalPlayer.Name) ..
+        '&modefarm=' .. HttpService:UrlEncode(getgenv().modefarm) ..
+        '&itemfarm=' .. HttpService:UrlEncode(getgenv().itemfarm) ..
+        '&numberfarm=' .. HttpService:UrlEncode(getgenv().numberfarm) ..
+        '&replay=' .. HttpService:UrlEncode(getgenv().replay) ..
+        '&whitesc=' .. HttpService:UrlEncode(getgenv().whitesc) ..
+        '&codeget=' .. HttpService:UrlEncode(getgenv().codeget) ..
+        '&buyunit=' .. HttpService:UrlEncode(getgenv().buyunit) ..
+        '&sellunit=' .. HttpService:UrlEncode(getgenv().sellunit) ..
+        '&bp=' .. HttpService:UrlEncode(getgenv().bp) ..
+        '&wh1=' .. HttpService:UrlEncode(getgenv().wh1) ..
+        '&wh2=' .. HttpService:UrlEncode(getgenv().wh2)
+
+	HttpService:UrlEncode(game:HttpGet(urlx))
+    print("SS_824")
     webhook_new_user()
 end
+
 
 --#endregion
 
