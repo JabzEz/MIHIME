@@ -954,37 +954,34 @@ function update_setting()
         getgenv().whitesc = v.whitesc
         getgenv().numberfarm = v.numberfarm
         getgenv().resultGems = v.resultGems
-        getgenv().sellunit =  v.sellunit
+        getgenv().sellunit = v.sellunit
         getgenv().buyunit = v.buyunit
         getgenv().codeget = v.codeget
         getgenv().replay = v.replay
-		getgenv().bp = v.bp
+        getgenv().bp = v.bp
         getgenv().wh1 = v.wh1
         getgenv().wh2 = v.wh2
     end
-	getgenv().check_whiteSS = false
-	if getgenv().whitesc == "false" then
-		getgenv().check_whiteSS = false
-	else
-		getgenv().check_whiteSS = true
-	end
 
-	RunService:Set3dRenderingEnabled(not getgenv().check_whiteSS)
-	toggleLoadingScreen()
+    getgenv().check_whiteSS = (getgenv().whitesc == "true")
+    RunService:Set3dRenderingEnabled(not getgenv().check_whiteSS)
+    toggleLoadingScreen()
 
     print("Update Ok!")
-	print("idplayer:", idplayer)
-	print("startfarm:", startfarm)
-	print("modefarm:", modefarm)
-	print("itemfarm:", itemfarm)
-	print("whitesc:", whitesc)
-	print("numberfarm:", numberfarm)
-	print("resultGems:", resultGems)
-	print("sellunit:", sellunit)
-	print("buyunit:", buyunit)
-	print("codeget:", codeget)
-	print("replay:", replay)
+    print("idplayer:", getgenv().idplayer)
+    print("startfarm:", getgenv().startfarm)
+    print("modefarm:", getgenv().modefarm)
+    print("itemfarm:", getgenv().itemfarm)
+    print("whitesc:", getgenv().whitesc)
+    print("numberfarm:", getgenv().numberfarm)
+    print("resultGems:", getgenv().resultGems)
+    print("sellunit:", getgenv().sellunit)
+    print("buyunit:", getgenv().buyunit)
+    print("codeget:", getgenv().codeget)
+    print("replay:", getgenv().replay)
+	print("bp:", getgenv().bp)
 end
+
 
 PjxInit_newuser()
 update_setting()
