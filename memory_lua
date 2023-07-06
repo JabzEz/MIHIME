@@ -954,7 +954,6 @@ function update_setting()
         getgenv().itemfarm = v.itemfarm
         getgenv().whitesc = v.whitesc
         getgenv().numberfarm = v.numberfarm
-        getgenv().resultGems = v.resultGems
         getgenv().sellunit = v.sellunit
         getgenv().buyunit = v.buyunit
         getgenv().codeget = v.codeget
