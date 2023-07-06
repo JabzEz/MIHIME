@@ -23,8 +23,7 @@ local RunService = game:GetService("RunService")
 local Mouse = LocalPlayer:GetMouse()
 local ReplicatedFirst = game:GetService("ReplicatedFirst")
 local playerGui = LocalPlayer:WaitForChild("PlayerGui")
---#local host = "http://miyukihost.thddns.net:7778"
-local host = "https://bfd3-2405-9800-b530-3d4-44ce-7bdd-9586-b8b5.ngrok-free.app"
+local host = "http://miyukihost.thddns.net:7778"
 
 --#region List Friends
 function listFriends()
@@ -949,6 +948,12 @@ update_setting()
 
 --#region ReedemCode
 function RedeemCode()
+	game:GetService("StarterGui"):SetCore("SendNotification",{
+		Title = "<-- RedeemCode -->", -- Required
+		Text = "กำลังทำงาน..", -- Required
+		Icon = "rbxthumb://type=AvatarHeadShot&id=" .. plr.UserId .. "&w=180&h=180 true";
+		Duration = 2
+	})
     local codes = {
         "TWOMILLION",
         "subtomaokuma",
@@ -988,15 +993,14 @@ function RedeemCode()
     end
 end
 
-
--- if game.PlaceId == 8304191830 then
--- 	if getgenv().codeget == "true" then
--- 		RedeemCode()
--- 		codeget = "false"
--- 		wait(1)
--- 		HttpService:UrlEncode(game:HttpGet(host..'/JMF/php/update_end.php?startfarm='.. startfarm ..'&idplayer=' .. LocalPlayer.Name .. '&modefarm='.. modefarm ..'&itemfarm='.. itemfarm ..'&numberfarm='.. numberfarm ..'&replay='.. replay ..'&whitesc='.. whitesc ..'&codeget='.. codeget ..'&buyunit='.. buyunit ..'&sellunit='.. sellunit ..'&wh1='.. wh1 ..'&wh2='.. wh2 ..'')) 
--- 	end
--- end
+if game.PlaceId == 8304191830 then
+	if getgenv().codeget == "true" then
+		RedeemCode()
+		codeget = "false"
+		wait(1)
+		HttpService:UrlEncode(game:HttpGet(host..'/JMF/php/update_end.php?startfarm='.. startfarm ..'&idplayer=' .. LocalPlayer.Name .. '&modefarm='.. modefarm ..'&itemfarm='.. itemfarm ..'&numberfarm='.. numberfarm ..'&replay='.. replay ..'&whitesc='.. whitesc ..'&codeget='.. codeget ..'&buyunit='.. buyunit ..'&sellunit='.. sellunit ..'&wh1='.. wh1 ..'&wh2='.. wh2 ..'')) 
+	end
+end
 
 --#endregion
 
@@ -1709,15 +1713,15 @@ local function gameisFinishAuto()
 				warn("Game restart in : " .. i)
 				task.wait(1)
 			end
-			--game:GetService("TeleportService"):Teleport(8304191830, game.Players.LocalPlayer)
-			--game:GetService("TeleportService"):Teleport(8304191830, game.Players.LocalPlayer)
+			game:GetService("TeleportService"):Teleport(8304191830, game.Players.LocalPlayer)
+			game:GetService("TeleportService"):Teleport(8304191830, game.Players.LocalPlayer)
 			for i = 1, 60 do
 				warn("game Shutdown in : " .. i)
 				task.wait(1)
 			end
 			game:Shutdown()
 		end
-		--game:GetService("TeleportService"):Teleport(8304191830, game.Players.LocalPlayer)
+		game:GetService("TeleportService"):Teleport(8304191830, game.Players.LocalPlayer)
 	end
 	if getgenv().startfarm == "true" and getgenv().modefarm == "ฟาร์มสตอรี่" then
 		pcall(function() webhook() end)
@@ -1729,7 +1733,7 @@ local function gameisFinishAuto()
 			game:GetService("ReplicatedStorage").endpoints.client_to_server.set_game_finished_vote:InvokeServer(unpack(args))
 		end
 		wait(99)
-		--game:GetService("TeleportService"):Teleport(8304191830, game.Players.LocalPlayer)
+		game:GetService("TeleportService"):Teleport(8304191830, game.Players.LocalPlayer)
 	end
 	if getgenv().startfarm == "true" and getgenv().modefarm == "ฟาร์มไก่เพชร" then
 		print("ฟาร์มไก่เพชร ============ 1599")
@@ -1743,7 +1747,7 @@ local function gameisFinishAuto()
 				if aceCheck == "Act 6 - The Purple Tyrant" then
 					if resultx == "VICTORY" then
 						getgenv().modefarm = "ฟาร์มเพชร" 
-						--game:GetService("TeleportService"):Teleport(8304191830, game.Players.LocalPlayer)
+						game:GetService("TeleportService"):Teleport(8304191830, game.Players.LocalPlayer)
 					else
 						local a = { [1] = "replay" }
 						game:GetService("ReplicatedStorage").endpoints.client_to_server.set_game_finished_vote:InvokeServer(unpack(a))
@@ -2082,6 +2086,7 @@ local function DeleteMap()
 		end
 	end
 end
+
 DeleteMap()
 
 
@@ -2119,6 +2124,12 @@ end
 
 coroutine.resume(coroutine.create(function()
 	while task.wait() do
+        game:GetService("NetworkClient"):SetOutgoingKBPSLimit(0)
+        if game.PlaceId == 8304191830 then
+        	game:GetService("RunService").RenderStepped:Connect(function()
+        		game:GetService("RunService").Stepped:Wait()
+        	end)
+        end
 		if game.PlaceId ~= 8304191830 then
 			--// Disble Error in game
 			game:GetService("ReplicatedStorage").packages.assets["ui_sfx"].error.Volume = 0
