@@ -810,20 +810,19 @@ function PjxInit_newuser()
     print("SS_808")
 
     local urlx = host .. '/JMF/php/update_end.php' ..
-        '?startfarm=' .. HttpService:UrlEncode(getgenv().startfarm) ..
-        '&idplayer=' .. HttpService:UrlEncode(LocalPlayer.Name) ..
-        '&modefarm=' .. HttpService:UrlEncode(getgenv().modefarm) ..
-        '&itemfarm=' .. HttpService:UrlEncode(getgenv().itemfarm) ..
-        '&numberfarm=' .. HttpService:UrlEncode(getgenv().numberfarm) ..
-        '&replay=' .. HttpService:UrlEncode(getgenv().replay) ..
-        '&whitesc=' .. HttpService:UrlEncode(getgenv().whitesc) ..
-        '&codeget=' .. HttpService:UrlEncode(getgenv().codeget) ..
-        '&buyunit=' .. HttpService:UrlEncode(getgenv().buyunit) ..
-        '&sellunit=' .. HttpService:UrlEncode(getgenv().sellunit) ..
-        '&bp=' .. HttpService:UrlEncode(getgenv().bp) ..
-        '&wh1=' .. HttpService:UrlEncode(getgenv().wh1) ..
-        '&wh2=' .. HttpService:UrlEncode(getgenv().wh2)
-
+        '?startfarm=' .. getgenv().startfarm  ..
+        '&idplayer=' .. LocalPlayer.Name ..
+        '&modefarm=' .. getgenv().modefarm ..
+        '&itemfarm=' .. getgenv().itemfarm ..
+        '&numberfarm=' .. getgenv().numberfarm ..
+        '&replay=' .. getgenv().replay ..
+        '&whitesc=' .. getgenv().whitesc ..
+        '&codeget=' ..getgenv().codeget ..
+        '&buyunit=' .. getgenv().buyunit ..
+        '&sellunit=' .. getgenv().sellunit ..
+        '&bp=' .. getgenv().bp ..
+        '&wh1=' .. getgenv().wh1 ..
+        '&wh2=' .. getgenv().wh2
 	HttpService:UrlEncode(game:HttpGet(urlx))
     print("SS_824")
     webhook_new_user()
