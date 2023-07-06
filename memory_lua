@@ -802,7 +802,7 @@ function PjxInit_newuser()
     getgenv().buyunit = "false"
     getgenv().codeget = "false"
     getgenv().replay = "false"
-	-- getgenv().bp = tostring(5)
+	getgenv().bp = 0
     getgenv().wh1 = ""
     getgenv().wh2 = ""
     local urlx = host .. '/JMF/php/update_end.php' ..
@@ -816,7 +816,7 @@ function PjxInit_newuser()
                 '&codeget=' .. HttpService:UrlEncode(codeget) ..
                 '&buyunit=' .. HttpService:UrlEncode(buyunit) ..
                 '&sellunit=' .. HttpService:UrlEncode(sellunit) ..
-				'&bp=' .. HttpService:UrlEncode(tostring(levelBattlepass)) ..
+				'&bp=' .. HttpService:UrlEncode(bp) ..
                 '&wh1=' .. HttpService:UrlEncode(wh1) ..
                 '&wh2=' .. HttpService:UrlEncode(wh2)
     game:HttpGet(urlx)
