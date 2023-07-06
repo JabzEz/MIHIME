@@ -304,20 +304,22 @@ function update_end()
     local totalWave = tostring(Workspace["_wave_num"].Value)
     local sumFarm = tostring(getgenv().numberfarm)
     local updateFarm = tonumber(sumFarm) - tonumber(gemReward)
-	getgenv().hookgem = tostring(updateFarm)
-    HttpService:UrlEncode(game:HttpGet(host..'/JMF/php/update_end.php?startfarm='.. tostring(getgenv().startfarm) ..'&idplayer=' .. LocalPlayer.Name .. '&modefarm='.. tostring(getgenv().modefarm) ..'&itemfarm='.. tostring(getgenv().itemfarm) ..'&numberfarm='.. tostring(updateFarm) ..'&replay='.. tostring(getgenv().replay == "true") ..'&whitesc='.. tostring(getgenv().whitesc) ..'&codeget='.. tostring(getgenv().codeget) ..'&buyunit='.. tostring(getgenv().buyunit) ..'&sellunit='.. tostring(getgenv().sellunit) ..'&wh1='.. tostring(getgenv().wh1) ..'&wh2='.. tostring(getgenv().wh2) ..''))
-	-- if sumFarm <= 1 then
-	-- 	update_data_Finish()
-	-- 	wait(3)
-	-- 	game:Shutdown()
-	-- end
+    --HttpService:UrlEncode(game:HttpGet(host..'/JMF/php/update_end.php?startfarm='.. tostring(getgenv().startfarm) ..'&idplayer=' .. LocalPlayer.Name .. '&modefarm='.. tostring(getgenv().modefarm) ..'&itemfarm='.. tostring(getgenv().itemfarm) ..'&numberfarm='.. tostring(updateFarm) ..'&replay='.. tostring(getgenv().replay == "true") ..'&whitesc='.. tostring(getgenv().whitesc) ..'&codeget='.. tostring(getgenv().codeget) ..'&buyunit='.. tostring(getgenv().buyunit) ..'&sellunit='.. tostring(getgenv().sellunit) ..'&wh1='.. tostring(getgenv().wh1) ..'&wh2='.. tostring(getgenv().wh2) ..''))
+	local urlx = host .. '/JMF/php/update_end.php' ..
+		'?numberfarm=' .. HttpService:UrlEncode(tostring(updateFarm))
+	game:HttpGet(urlx)
 end
 
 function Reset_Finish()
     local updateFarm = "เสร็จแล้ว"
 	local startfarm = "false"
 	local replay = "false"
-    HttpService:UrlEncode(game:HttpGet(host..'/JMF/php/update_end.php?startfarm='.. startfarm ..'&idplayer=' .. LocalPlayer.Name .. '&modefarm='.. tostring(getgenv().modefarm) ..'&itemfarm='.. tostring(getgenv().itemfarm) ..'&numberfarm='.. tostring(updateFarm) ..'&replay='.. replay ..'&whitesc='.. tostring(getgenv().whitesc) ..'&codeget='.. tostring(getgenv().codeget) ..'&buyunit='.. tostring(getgenv().buyunit) ..'&sellunit='.. tostring(getgenv().sellunit) ..'&wh1='.. tostring(getgenv().wh1) ..'&wh2='.. tostring(getgenv().wh2) ..''))
+    --HttpService:UrlEncode(game:HttpGet(host..'/JMF/php/update_end.php?startfarm='.. startfarm ..'&idplayer=' .. LocalPlayer.Name .. '&modefarm='.. tostring(getgenv().modefarm) ..'&itemfarm='.. tostring(getgenv().itemfarm) ..'&numberfarm='.. tostring(updateFarm) ..'&replay='.. replay ..'&whitesc='.. tostring(getgenv().whitesc) ..'&codeget='.. tostring(getgenv().codeget) ..'&buyunit='.. tostring(getgenv().buyunit) ..'&sellunit='.. tostring(getgenv().sellunit) ..'&wh1='.. tostring(getgenv().wh1) ..'&wh2='.. tostring(getgenv().wh2) ..''))
+	local urlx = host .. '/JMF/php/update_end.php' ..
+		'?startfarm=' .. HttpService:UrlEncode(startfarm) ..
+		'?numberfarm=' .. HttpService:UrlEncode(tostring(updateFarm)) ..
+		'?replay=' .. HttpService:UrlEncode(tostring(replay))
+	game:HttpGet(urlx)
 end
 --#endregion
 
@@ -503,6 +505,28 @@ function update_data()
 	end
 
 	--#region คำนวน จะเสร็จตอนไหน
+	-- if getgenv().modefarm == "ฟาร์มไก่เพชร" then
+	-- 	target_gem_reward = tonumber(getgenv().hookgem)
+	-- 	print("===================")
+	-- 	print(total_time)
+	-- 	print(gem_reward)
+	-- 	print(target_gem_reward)
+	-- 	print("===================")
+	-- 	gem_rewardX = tonumber(gem_reward:sub(2))
+	-- 	minute, second = total_time:match("(%d+):(%d+)")
+	-- 	total_time_seconds = tonumber(minute) * 60 + tonumber(second)
+	-- 	gem_reward_per_second = gem_rewardX / total_time_seconds
+	-- 	required_time_seconds = target_gem_reward / gem_reward_per_second
+	-- 	days = math.floor(required_time_seconds / (24 * 60 * 60))
+	-- 	remaining_seconds = required_time_seconds % (24 * 60 * 60)
+	-- 	hours = math.floor(remaining_seconds / (60 * 60))
+	-- 	remaining_seconds = remaining_seconds % (60 * 60)
+	-- 	minutes = math.floor(remaining_seconds / 60)
+	-- 	resultX = ""
+	-- elseif getgenv().modefarm == "ฟาร์มเพชร"
+	-- then
+
+
 	target_gem_reward = tonumber(getgenv().hookgem)
 	print("===================")
 	print(total_time)
@@ -520,6 +544,7 @@ function update_data()
 	remaining_seconds = remaining_seconds % (60 * 60)
 	minutes = math.floor(remaining_seconds / 60)
 	resultX = ""
+
 
 	if days > 0 then
 		resultX = days .. " วัน "
@@ -764,6 +789,13 @@ function PjxInit_newuser()
     if LocalPlayer.Name == idplayer then
         return null
     end
+	if game.PlaceId == 8304191830 then --//Battle Pass
+		pcall(function()
+			repeat task.wait() until game:GetService("Players").LocalPlayer.PlayerGui.BattlePass.Main.Level.V.Text ~= "99" 
+			levelBattlepass = game:GetService("Players").LocalPlayer.PlayerGui.BattlePass.Main.Level.V.Text
+			getgenv().BattlePass = tostring(levelBattlepass)
+		end)
+	end
     getgenv().startfarm = "false"
     getgenv().modefarm = "เลือกโหมดที่ต้องการฟาร์ม"
     getgenv().itemfarm = "เลือกไอเท็มเรท"
@@ -775,10 +807,11 @@ function PjxInit_newuser()
     getgenv().codeget = "false"
     getgenv().resultGems =  0
     getgenv().replay = "false"
+	getgenv().bp = getgenv().BattlePass
     getgenv().wh1 = ""
     getgenv().wh2 = ""
 	--# ส่งข้อมูล ไปยัง Server
-	HttpService:UrlEncode(game:HttpGet(host..'/JMF/php/update_end.php?startfarm='.. startfarm ..'&idplayer=' .. LocalPlayer.Name .. '&modefarm='.. modefarm ..'&itemfarm='.. itemfarm ..'&numberfarm='.. numberfarm ..'&replay='.. replay ..'&whitesc='.. whitesc ..'&codeget='.. codeget ..'&buyunit='.. buyunit ..'&sellunit='.. sellunit ..'&wh1='.. wh1 ..'&wh2='.. wh2 ..'')) 
+	HttpService:UrlEncode(game:HttpGet(host..'/JMF/php/update_end.php?startfarm='.. startfarm ..'&idplayer=' .. LocalPlayer.Name .. '&modefarm='.. modefarm ..'&itemfarm='.. itemfarm ..'&numberfarm='.. numberfarm ..'&replay='.. replay ..'&whitesc='.. whitesc ..'&codeget='.. codeget ..'&buyunit='.. buyunit ..'&sellunit='.. sellunit ..'&wh1='.. wh1 ..'&wh2='.. wh2 ..'&bp='.. bp ..'')) 
 	webhook_new_user()
 end
 
@@ -915,6 +948,7 @@ function update_setting()
         getgenv().buyunit = v.buyunit
         getgenv().codeget = v.codeget
         getgenv().replay = v.replay
+		getgenv().bp = v.bp
         getgenv().wh1 = v.wh1
         getgenv().wh2 = v.wh2
     end
@@ -940,6 +974,7 @@ function update_setting()
 	print("buyunit:", buyunit)
 	print("codeget:", codeget)
 	print("replay:", replay)
+	print("bp", bp)
 end
 PjxInit_newuser()
 update_setting()
