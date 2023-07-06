@@ -786,12 +786,12 @@ function PjxInit_newuser()
     if LocalPlayer.Name == idplayer then
         return null
     end
-	-- if game.PlaceId == 8304191830 then --//Battle Pass
-	-- 	pcall(function()
-	-- 		repeat task.wait() until game:GetService("Players").LocalPlayer.PlayerGui.BattlePass.Main.Level.V.Text ~= "99" 
-	-- 		levelBattlepass = game:GetService("Players").LocalPlayer.PlayerGui.BattlePass.Main.Level.V.Text
-	-- 	end)
-	-- end
+	if game.PlaceId == 8304191830 then --//Battle Pass
+		pcall(function()
+			repeat task.wait() until game:GetService("Players").LocalPlayer.PlayerGui.BattlePass.Main.Level.V.Text ~= "99" 
+			levelBattlepass = game:GetService("Players").LocalPlayer.PlayerGui.BattlePass.Main.Level.V.Text
+		end)
+	end
     getgenv().startfarm = "false"
     getgenv().modefarm = "เลือกโหมดที่ต้องการฟาร์ม"
     getgenv().itemfarm = "เลือกไอเท็มเรท"
@@ -802,9 +802,10 @@ function PjxInit_newuser()
     getgenv().buyunit = "false"
     getgenv().codeget = "false"
     getgenv().replay = "false"
-	getgenv().bp = 0
+	getgenv().bp = "0"
     getgenv().wh1 = ""
     getgenv().wh2 = ""
+	print("SS_808")
     local urlx = host .. '/JMF/php/update_end.php' ..
                 '?startfarm=' .. HttpService:UrlEncode(startfarm) ..
                 '&idplayer=' .. HttpService:UrlEncode(LocalPlayer.Name) ..
@@ -820,6 +821,7 @@ function PjxInit_newuser()
                 '&wh1=' .. HttpService:UrlEncode(wh1) ..
                 '&wh2=' .. HttpService:UrlEncode(wh2)
     game:HttpGet(urlx)
+	print("SS_824")
     webhook_new_user()
 end
 
@@ -956,6 +958,7 @@ function update_setting()
         getgenv().buyunit = v.buyunit
         getgenv().codeget = v.codeget
         getgenv().replay = v.replay
+		getgenv().bp = v.bp
         getgenv().wh1 = v.wh1
         getgenv().wh2 = v.wh2
     end
@@ -982,6 +985,7 @@ function update_setting()
 	print("codeget:", codeget)
 	print("replay:", replay)
 end
+
 PjxInit_newuser()
 update_setting()
 
