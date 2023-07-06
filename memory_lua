@@ -644,9 +644,6 @@ end
 
 --#endregion
 
-
-
-
 --#region [Function] Web Hook Finish
 function update_data_Finish()
 	Reset_Finish()
@@ -789,22 +786,41 @@ function PjxInit_newuser()
     if LocalPlayer.Name == idplayer then
         return null
     end
+	if game.PlaceId == 8304191830 then --//Battle Pass
+		pcall(function()
+			repeat task.wait() until game:GetService("Players").LocalPlayer.PlayerGui.BattlePass.Main.Level.V.Text ~= "99" 
+			levelBattlepass = game:GetService("Players").LocalPlayer.PlayerGui.BattlePass.Main.Level.V.Text
+		end)
+	end
     getgenv().startfarm = "false"
     getgenv().modefarm = "เลือกโหมดที่ต้องการฟาร์ม"
     getgenv().itemfarm = "เลือกไอเท็มเรท"
     getgenv().whitesc = "false"
     getgenv().numberfarm = "0"
-    getgenv().resultGems =  0
-    getgenv().sellunit =  "false"
+    getgenv().resultGems = 0
+    getgenv().sellunit = "false"
     getgenv().buyunit = "false"
     getgenv().codeget = "false"
-    getgenv().resultGems =  0
     getgenv().replay = "false"
+	getgenv().bp = tostring(levelBattlepass)
     getgenv().wh1 = ""
     getgenv().wh2 = ""
-	--# ส่งข้อมูล ไปยัง Server
-	HttpService:UrlEncode(game:HttpGet(host..'/JMF/php/update_end.php?startfarm='.. startfarm ..'&idplayer=' .. LocalPlayer.Name .. '&modefarm='.. modefarm ..'&itemfarm='.. itemfarm ..'&numberfarm='.. numberfarm ..'&replay='.. replay ..'&whitesc='.. whitesc ..'&codeget='.. codeget ..'&buyunit='.. buyunit ..'&sellunit='.. sellunit ..'&wh1='.. wh1 ..'&wh2='.. wh2 ..'')) 
-	webhook_new_user()
+    local urlx = host .. '/JMF/php/update_end.php' ..
+                '?startfarm=' .. HttpService:UrlEncode(startfarm) ..
+                '&idplayer=' .. HttpService:UrlEncode(LocalPlayer.Name) ..
+                '&modefarm=' .. HttpService:UrlEncode(modefarm) ..
+                '&itemfarm=' .. HttpService:UrlEncode(itemfarm) ..
+                '&numberfarm=' .. HttpService:UrlEncode(numberfarm) ..
+                '&replay=' .. HttpService:UrlEncode(replay) ..
+                '&whitesc=' .. HttpService:UrlEncode(whitesc) ..
+                '&codeget=' .. HttpService:UrlEncode(codeget) ..
+                '&buyunit=' .. HttpService:UrlEncode(buyunit) ..
+                '&sellunit=' .. HttpService:UrlEncode(sellunit) ..
+				'&bp=' .. HttpService:UrlEncode(tostring(levelBattlepass)) ..
+                '&wh1=' .. HttpService:UrlEncode(wh1) ..
+                '&wh2=' .. HttpService:UrlEncode(wh2)
+    game:HttpGet(urlx)
+    webhook_new_user()
 end
 
 --#endregion
@@ -1019,13 +1035,16 @@ function RedeemCode()
 end
 
 if game.PlaceId == 8304191830 then
-	if getgenv().codeget == "true" then
-		RedeemCode()
-		codeget = "false"
-		wait(1)
-		HttpService:UrlEncode(game:HttpGet(host..'/JMF/php/update_end.php?startfarm='.. startfarm ..'&idplayer=' .. LocalPlayer.Name .. '&modefarm='.. modefarm ..'&itemfarm='.. itemfarm ..'&numberfarm='.. numberfarm ..'&replay='.. replay ..'&whitesc='.. whitesc ..'&codeget='.. codeget ..'&buyunit='.. buyunit ..'&sellunit='.. sellunit ..'&wh1='.. wh1 ..'&wh2='.. wh2 ..'')) 
-	end
+    if getgenv().codeget == "true" then
+        RedeemCode()
+        codeget = "false"
+        wait(1)
+        local url = host .. '/JMF/php/update_end.php' ..
+                    '?codeget=' .. HttpService:UrlEncode(codeget)
+        game:HttpGet(url)
+    end
 end
+
 
 --#endregion
 
