@@ -300,13 +300,18 @@ end
 --#region FIX WebHook_Update
 
 function Update_end()
-	local urlParams = {
-        gemReward = tostring(LocalPlayer.PlayerGui.Waves.HealthBar.IngameRewards.GemRewardTotal.Holder.Main.Amount.Text),
-        totalWave = tostring(Workspace["_wave_num"].Value),
-        sumFarm = tostring(getgenv().numberfarm),
-        updateFarm = tonumber(sumFarm) - tonumber(gemReward)
+    local gemReward = tostring(LocalPlayer.PlayerGui.Waves.HealthBar.IngameRewards.GemRewardTotal.Holder.Main.Amount.Text)
+    local totalWave = tostring(Workspace["_wave_num"].Value)
+    local sumFarm = tostring(getgenv().numberfarm)
+    local updateFarm = tonumber(sumFarm) - tonumber(gemReward)
+    
+    local urlParams = {
+        gemReward = gemReward,
+        totalWave = totalWave,
+        sumFarm = sumFarm,
+        updateFarm = tostring(updateFarm)
     }
-	
+    
     local encodedParams = {}
     for key, value in pairs(urlParams) do
         table.insert(encodedParams, key .. '=' .. HttpService:UrlEncode(value))
@@ -314,17 +319,17 @@ function Update_end()
     local queryString = table.concat(encodedParams, '&')
     local url = host .. '/JMF/php/update_end.php?' .. queryString
     HttpService:UrlEncode(game:HttpGet(url))
-	
 end
 
+
 function Reset_Finish()
-	local urlParams = {
+    local urlParams = {
         startfarm = "false",
         modefarm = "เลือกโหมดที่ต้องการฟาร์ม",
         numberfarm = "เสร็จแล้ว",
         replay = "false"
     }
-	
+    
     local encodedParams = {}
     for key, value in pairs(urlParams) do
         table.insert(encodedParams, key .. '=' .. HttpService:UrlEncode(value))
@@ -332,8 +337,8 @@ function Reset_Finish()
     local queryString = table.concat(encodedParams, '&')
     local url = host .. '/JMF/php/update_end.php?' .. queryString
     HttpService:UrlEncode(game:HttpGet(url))
-
 end
+
 --#endregion
 
 --#region [Function] Web Hook Deteal  [ถ้าไม่มี ITEM จะไม่แสดงข้อมูล]
@@ -517,73 +522,56 @@ function update_data()
 		raidsValue = ("❗️ไม่มีไอเท็ม 📦")
 	end
 
-	-- local infiniteTowerLevels = {}
+	local infiniteTowerLevels = {}
 
-	-- for i, v in pairs(game:GetService("Players")[game.Players.LocalPlayer.Name].PlayerGui.InfiniteTowerUI.LevelSelect.InfoFrame.LevelButtons:GetChildren()) do
-	-- 	if v.Name == "FloorButton" then
-	-- 		if v.clear.Visible == false and v.Locked.Visible == false then
-	-- 			local level = tonumber(v.Main.Text)
-	-- 			table.insert(infiniteTowerLevels, level)
-	-- 		end
-	-- 	end
-	-- end
+	for i, v in pairs(game:GetService("Players")[game.Players.LocalPlayer.Name].PlayerGui.InfiniteTowerUI.LevelSelect.InfoFrame.LevelButtons:GetChildren()) do
+		if v.Name == "FloorButton" then
+			if v.clear.Visible == false and v.Locked.Visible == false then
+				local level = tonumber(v.Main.Text)
+				table.insert(infiniteTowerLevels, level)
+			end
+		end
+	end
 
 
-	target_gem_reward = tonumber(getgenv().hookgem)
-	print("===================")
-	print(total_time)
-	print(gem_reward)
-	print(target_gem_reward)
-	print("===================")
-	gem_rewardX = tonumber(gem_reward:sub(2))
-	minute, second = total_time:match("(%d+):(%d+)")
-	total_time_seconds = tonumber(minute) * 60 + tonumber(second)
-	gem_reward_per_second = gem_rewardX / total_time_seconds
-	required_time_seconds = target_gem_reward / gem_reward_per_second
-	days = math.floor(required_time_seconds / (24 * 60 * 60))
-	remaining_seconds = required_time_seconds % (24 * 60 * 60)
-	hours = math.floor(remaining_seconds / (60 * 60))
-	remaining_seconds = remaining_seconds % (60 * 60)
-	minutes = math.floor
-
-	-- --#region คำนวน จะเสร็จตอนไหน
-	-- if getgenv().modefarm == "ฟาร์มไก่เพชร" or getgenv().modefarm == "ฟาร์มเพชร" then
-	-- 	target_gem_reward = tonumber(getgenv().hookgem)
-	-- 	print("===================")
-	-- 	print(total_time)
-	-- 	print(gem_reward)
-	-- 	print(target_gem_reward)
-	-- 	print("===================")
-	-- 	gem_rewardX = tonumber(gem_reward:sub(2))
-	-- 	minute, second = total_time:match("(%d+):(%d+)")
-	-- 	total_time_seconds = tonumber(minute) * 60 + tonumber(second)
-	-- 	gem_reward_per_second = gem_rewardX / total_time_seconds
-	-- 	required_time_seconds = target_gem_reward / gem_reward_per_second
-	-- 	days = math.floor(required_time_seconds / (24 * 60 * 60))
-	-- 	remaining_seconds = required_time_seconds % (24 * 60 * 60)
-	-- 	hours = math.floor(remaining_seconds / (60 * 60))
-	-- 	remaining_seconds = remaining_seconds % (60 * 60)
-	-- 	minutes = math.floor(remaining_seconds / 60)
-	-- 	resultX = ""
-	-- elseif getgenv().modefarm == "ฟาร์มเวลตัวละคร" then
-	-- 	user_level = tonumber(LocalPlayer.PlayerGui.spawn_units.Lives.Main.Desc.Level.Text)
-	-- 	target_level = tonumber(getgenv().hookgem)
-	-- 	print("===================")
-	-- 	print(total_time)
-	-- 	print(gem_reward)
-	-- 	print(target_level)
-	-- 	print("===================")
-	-- 	level_rewardX = tonumber(gem_reward:sub(2))
-	-- 	minute, second = total_time:match("(%d+):(%d+)")
-	-- 	total_time_seconds = tonumber(minute) * 60 + tonumber(second)
-	-- 	level_reward_per_second = level_rewardX / total_time_seconds
-	-- 	required_time_seconds = (target_level - user_level) / level_reward_per_second
-	-- 	days = math.floor(required_time_seconds / (24 * 60 * 60))
-	-- 	remaining_seconds = required_time_seconds % (24 * 60 * 60)
-	-- 	hours = math.floor(remaining_seconds / (60 * 60))
-	-- 	remaining_seconds = remaining_seconds % (60 * 60)
-	-- 	minutes = math.floor(remaining_seconds / 60)
-	-- 	resultX = ""
+	--#region คำนวน จะเสร็จตอนไหน
+	if getgenv().modefarm == "ฟาร์มไก่เพชร" or getgenv().modefarm == "ฟาร์มเพชร" then
+		target_gem_reward = tonumber(getgenv().hookgem)
+		print("===================")
+		print(total_time)
+		print(gem_reward)
+		print(target_gem_reward)
+		print("===================")
+		gem_rewardX = tonumber(gem_reward:sub(2))
+		minute, second = total_time:match("(%d+):(%d+)")
+		total_time_seconds = tonumber(minute) * 60 + tonumber(second)
+		gem_reward_per_second = gem_rewardX / total_time_seconds
+		required_time_seconds = target_gem_reward / gem_reward_per_second
+		days = math.floor(required_time_seconds / (24 * 60 * 60))
+		remaining_seconds = required_time_seconds % (24 * 60 * 60)
+		hours = math.floor(remaining_seconds / (60 * 60))
+		remaining_seconds = remaining_seconds % (60 * 60)
+		minutes = math.floor(remaining_seconds / 60)
+		resultX = ""
+	elseif getgenv().modefarm == "ฟาร์มเวลตัวละคร" then
+		user_level = tonumber(LocalPlayer.PlayerGui.spawn_units.Lives.Main.Desc.Level.Text)
+		target_level = tonumber(getgenv().hookgem)
+		print("===================")
+		print(total_time)
+		print(gem_reward)
+		print(target_level)
+		print("===================")
+		level_rewardX = tonumber(gem_reward:sub(2))
+		minute, second = total_time:match("(%d+):(%d+)")
+		total_time_seconds = tonumber(minute) * 60 + tonumber(second)
+		level_reward_per_second = level_rewardX / total_time_seconds
+		required_time_seconds = (target_level - user_level) / level_reward_per_second
+		days = math.floor(required_time_seconds / (24 * 60 * 60))
+		remaining_seconds = required_time_seconds % (24 * 60 * 60)
+		hours = math.floor(remaining_seconds / (60 * 60))
+		remaining_seconds = remaining_seconds % (60 * 60)
+		minutes = math.floor(remaining_seconds / 60)
+		resultX = ""
 	-- elseif getgenv().modefarm == "ฟาร์มหอคอย" then
 	-- 	infiniteTower = tonumber(infiniteTowerLevels)
 	-- 	target_infinite = tonumber(getgenv().hookgem)
@@ -603,7 +591,7 @@ function update_data()
 	-- 	remaining_seconds = remaining_seconds % (60 * 60)
 	-- 	minutes = math.floor(remaining_seconds / 60)
 	-- 	resultX = ""
-	--end
+	end
 	
 
 	if days > 0 then
@@ -949,7 +937,7 @@ UserInputService.InputBegan:Connect(function(input, processed)
 				RunService:Set3dRenderingEnabled(not WHITESCZ)
 				print("OFF")
 				whitesc = "false"
-				--HttpService:UrlEncode(game:HttpGet(host..'/JMF/php/update_end.php?startfarm='.. startfarm ..'&idplayer=' .. LocalPlayer.Name .. '&modefarm='.. modefarm ..'&itemfarm='.. itemfarm ..'&numberfarm='.. numberfarm ..'&replay='.. replay ..'&whitesc='.. whitesc ..'&codeget='.. codeget ..'&buyunit='.. buyunit ..'&sellunit='.. sellunit ..'&wh1='.. wh1 ..'&wh2='.. wh2 ..'')) 
+				HttpService:UrlEncode(game:HttpGet(host..'/JMF/php/update_end.php?startfarm='.. startfarm ..'&idplayer=' .. LocalPlayer.Name .. '&modefarm='.. modefarm ..'&itemfarm='.. itemfarm ..'&numberfarm='.. numberfarm ..'&replay='.. replay ..'&whitesc='.. whitesc ..'&codeget='.. codeget ..'&buyunit='.. buyunit ..'&sellunit='.. sellunit ..'&wh1='.. wh1 ..'&wh2='.. wh2 ..'')) 
 				getgenv().check_whiteSS = false
 				toggleLoadingScreen()
 			else
@@ -957,7 +945,7 @@ UserInputService.InputBegan:Connect(function(input, processed)
 				RunService:Set3dRenderingEnabled(not WHITESCZ)
 				print("ON")
 				whitesc = "true"
-				--HttpService:UrlEncode(game:HttpGet(host..'/JMF/php/update_end.php?startfarm='.. startfarm ..'&idplayer=' .. LocalPlayer.Name .. '&modefarm='.. modefarm ..'&itemfarm='.. itemfarm ..'&numberfarm='.. numberfarm ..'&replay='.. replay ..'&whitesc='.. whitesc ..'&codeget='.. codeget ..'&buyunit='.. buyunit ..'&sellunit='.. sellunit ..'&wh1='.. wh1 ..'&wh2='.. wh2 ..'')) 
+				HttpService:UrlEncode(game:HttpGet(host..'/JMF/php/update_end.php?startfarm='.. startfarm ..'&idplayer=' .. LocalPlayer.Name .. '&modefarm='.. modefarm ..'&itemfarm='.. itemfarm ..'&numberfarm='.. numberfarm ..'&replay='.. replay ..'&whitesc='.. whitesc ..'&codeget='.. codeget ..'&buyunit='.. buyunit ..'&sellunit='.. sellunit ..'&wh1='.. wh1 ..'&wh2='.. wh2 ..'')) 
 				getgenv().check_whiteSS = true
 				toggleLoadingScreen()
 			end
