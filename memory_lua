@@ -603,7 +603,7 @@ function update_data()
 	-- 	remaining_seconds = remaining_seconds % (60 * 60)
 	-- 	minutes = math.floor(remaining_seconds / 60)
 	-- 	resultX = ""
-	end
+	--end
 	
 
 	if days > 0 then
