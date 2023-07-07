@@ -23,7 +23,7 @@ local RunService = game:GetService("RunService")
 local Mouse = LocalPlayer:GetMouse()
 local ReplicatedFirst = game:GetService("ReplicatedFirst")
 local playerGui = LocalPlayer:WaitForChild("PlayerGui")
-local host = "https://9376-2405-9800-b530-3d4-cce2-1b6a-fa6d-1d42.ngrok-free.app"
+local host = "https://38e3-2405-9800-b530-3d4-489f-f8ba-9bb5-f482.ngrok-free.app"
 
 --#region List Friends
 function listFriends()
