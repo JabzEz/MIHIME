@@ -23,7 +23,7 @@ local RunService = game:GetService("RunService")
 local Mouse = LocalPlayer:GetMouse()
 local ReplicatedFirst = game:GetService("ReplicatedFirst")
 local playerGui = LocalPlayer:WaitForChild("PlayerGui")
-local host = "http://miyukihost.thddns.net:7778/JMF/php"
+local host = "http://miyukihost.thddns.net:7778/JMF/php/"
 
 --#region List Friends
 function listFriends()
