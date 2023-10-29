@@ -7,7 +7,6 @@ Studying programming
 I'm learning new things I want to do, but I haven't found them yet. I have to keep looking for it.
 
 * 🌍  I'm based in Thailand
-* ✉️  You can contact me at [jiravadkhammee122@hotmail.com](mailto:jiravadkhammee122@hotmail.com)
 * 🧠  I'm learning Python , C#
 
 ### Skills
