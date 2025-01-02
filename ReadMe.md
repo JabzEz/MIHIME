@@ -7,7 +7,7 @@ Studying programming
 I'm learning new things I want to do, but I haven't found them yet. I have to keep looking for it.
 
 * 🌍  I'm based in Thailand
-* 🧠  I'm learning Python , C#
+* 🧠  I'm learning Python , C#, Lua
 
 ### Skills
 
